@@ -29,15 +29,19 @@ export default function ExamCalculator() {
     setScores(newScores);
   };
 
+  const calculateGrade = (index: number) => {
+    const subject = subjects[index];
+    const examScore = parseFloat(scores[index].exam) || 0;
+    const caScore = parseFloat(scores[index].ca) || 0;
+    return (examScore * subject.exam + caScore * subject.ca).toFixed(2);
+  };
+
   const calculateAverage = () => {
     let total = 0;
     let totalCoeff = 0;
 
     subjects.forEach((subject, index) => {
-      const examScore = parseFloat(scores[index].exam) || 0;
-      const caScore = parseFloat(scores[index].ca) || 0;
-      const weightedScore =
-        examScore * subject.exam + caScore * subject.ca;
+      const weightedScore = parseFloat(calculateGrade(index)) || 0;
       total += weightedScore * subject.coefficient;
       totalCoeff += subject.coefficient;
     });
@@ -54,6 +58,7 @@ export default function ExamCalculator() {
             <th className="p-2 border">Subject</th>
             <th className="p-2 border">Exam</th>
             <th className="p-2 border">CA</th>
+            <th className="p-2 border">Grade</th>
           </tr>
         </thead>
         <tbody>
@@ -77,17 +82,12 @@ export default function ExamCalculator() {
                   disabled={subject.ca === 0}
                 />
               </td>
+              <td className="p-2 border text-center font-bold">{calculateGrade(index)}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <div className="text-center mt-4">
-        {/* <button
-          onClick={calculateAverage}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-        >
-          Calculate Average
-        </button> */}
         <h2 className="text-xl font-bold mt-2">Average: {calculateAverage()}</h2>
       </div>
     </div>
