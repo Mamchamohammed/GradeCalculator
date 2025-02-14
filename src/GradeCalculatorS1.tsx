@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 const subjects = [
@@ -14,6 +15,7 @@ const subjects = [
 ];
 
 export default function ExamCalculator() {
+  const navigate = useNavigate();
   const [scores, setScores] = useState(() => {
     const savedScores = Cookies.get("examScoresS1");
     return savedScores ? JSON.parse(savedScores) : subjects.map(() => ({ exam: "", ca: "" }));
@@ -50,46 +52,54 @@ export default function ExamCalculator() {
   };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto bg-white shadow-lg rounded-lg">
-      <h1 className="text-2xl font-bold text-center mb-4">Exam Calculator</h1>
-      <table className="w-full border-collapse border border-gray-300">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="p-2 border">Subject</th>
-            <th className="p-2 border">Exam</th>
-            <th className="p-2 border">CA</th>
-            <th className="p-2 border">Grade</th>
-          </tr>
-        </thead>
-        <tbody>
-          {subjects.map((subject, index) => (
-            <tr key={index}>
-              <td className="p-2 border">{subject.name}</td>
-              <td className="p-2 border">
-                <input
-                  type="number"
-                  value={scores[index].exam}
-                  onChange={(e) => handleChange(index, "exam", e.target.value)}
-                  className="w-full p-1 border rounded"
-                />
-              </td>
-              <td className="p-2 border">
-                <input
-                  type="number"
-                  value={scores[index].ca}
-                  onChange={(e) => handleChange(index, "ca", e.target.value)}
-                  className="w-full p-1 border rounded"
-                  disabled={subject.ca === 0}
-                />
-              </td>
-              <td className="p-2 border text-center font-bold">{calculateGrade(index)}</td>
+    <div className="p-6 min-h-screen bg-gray-100 flex flex-col items-center">
+      <div className="w-full max-w-3xl bg-white shadow-lg rounded-lg p-6">
+        <h1 className="text-2xl font-bold text-center mb-4">Exam Calculator</h1>
+        <table className="w-full border-collapse border border-gray-300 text-sm sm:text-base">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="p-2 border">Subject</th>
+              <th className="p-2 border">Exam</th>
+              <th className="p-2 border">CA</th>
+              <th className="p-2 border">Grade</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="text-center mt-4">
-        <h2 className="text-xl font-bold mt-2">Average: {calculateAverage()}</h2>
+          </thead>
+          <tbody>
+            {subjects.map((subject, index) => (
+              <tr key={index} className="text-center">
+                <td className="p-2 border">{subject.name}</td>
+                <td className="p-2 border">
+                  <input
+                    type="number"
+                    value={scores[index].exam}
+                    onChange={(e) => handleChange(index, "exam", e.target.value)}
+                    className="w-full p-1 border rounded text-center"
+                  />
+                </td>
+                <td className="p-2 border">
+                  <input
+                    type="number"
+                    value={scores[index].ca}
+                    onChange={(e) => handleChange(index, "ca", e.target.value)}
+                    className="w-full p-1 border rounded text-center"
+                    disabled={subject.ca === 0}
+                  />
+                </td>
+                <td className="p-2 border font-bold">{calculateGrade(index)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="text-center mt-4">
+          <h2 className="text-xl font-bold mt-2">Average: {calculateAverage()}</h2>
+        </div>
       </div>
+      <button
+        onClick={() => navigate(-1)}
+        className="mt-6 bg-blue-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-600 transition-all"
+      >
+        Back
+      </button>
     </div>
   );
 }
