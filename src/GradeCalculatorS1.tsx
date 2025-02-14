@@ -15,12 +15,12 @@ const subjects = [
 
 export default function ExamCalculator() {
   const [scores, setScores] = useState(() => {
-    const savedScores = Cookies.get("examScores");
+    const savedScores = Cookies.get("examScoresS1");
     return savedScores ? JSON.parse(savedScores) : subjects.map(() => ({ exam: "", ca: "" }));
   });
 
   useEffect(() => {
-    Cookies.set("examScores", JSON.stringify(scores), { expires: 365 });
+    Cookies.set("examScoresS1", JSON.stringify(scores), { expires: 365 });
   }, [scores]);
 
   const handleChange = (index: number, type: "exam" | "ca", value: string) => {
