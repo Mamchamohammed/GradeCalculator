@@ -24,13 +24,13 @@ export default function HomePage() {
       <div className="grid gap-4 w-full max-w-md mt-8">
         <h2 className="text-xl font-bold mb-4 text-center">L3</h2>
         <button
-          onClick={() => navigate("/GradeCalculatorL3S1")}
+          onClick={() => navigate("/ComingSoon")}
           className="w-full bg-purple-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-purple-600 transition-all"
         >
           L3 S1 Grade Calculator
         </button>
         <button
-          onClick={() => navigate("/GradeCalculatorL3S2")}
+          onClick={() => navigate("/ComingSoon")}
           className="w-full bg-red-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-red-600 transition-all"
         >
           L3 S2 Grade Calculator
