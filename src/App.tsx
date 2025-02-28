@@ -1,15 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
-import GradeCalculatorS1 from "./GradeCalculatorS1";
-import GradeCalculatorS2 from "./GradeCalculatorS2";
+import GradeCalculatorM1GLS1 from "./GradeCalculatorM1GLS1";
+import GradeCalculatorM1GLS2 from "./GradeCalculatorM1GLS2";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/GradeCalculatorS1" element={<GradeCalculatorS1 />} />
-        <Route path="/GradeCalculatorS2" element={<GradeCalculatorS2 />} />
+        <Route path="/GradeCalculatorM1GLS1" element={<GradeCalculatorM1GLS1 />} />
+        <Route path="/GradeCalculatorM1GLS2" element={<GradeCalculatorM1GLS2 />} />
       </Routes>
     </Router>
   );
